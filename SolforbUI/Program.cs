@@ -1,4 +1,13 @@
+using AutoMapper;
+using BuisnessLogicLayer.Interfaces;
+using BuisnessLogicLayer.Services;
+using DAL.EF;
+using DAL.Entities;
+using DAL.Interfaces;
+using DAL.Repository;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using SolforbUI.Services;
 using System.Reflection;
 
 namespace SolforbUI
@@ -14,8 +23,8 @@ namespace SolforbUI
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Rubius API",
-                    Description = "An ASP.NET Core Web API for managing Rubius items"
+                    Title = "SolfOrb API",
+                    Description = "An ASP.NET Core Web API for managing SolfOrb items"
                 });
                 var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
@@ -26,6 +35,31 @@ namespace SolforbUI
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddCors();
+
+            //Регистрация созданных сервисов
+            //Сервисы в DAL
+            builder.Services.AddTransient<IRepository<Order>, OrderRepository>();
+            builder.Services.AddTransient<IRepository<OrderItem>, OrderItemRepository>();
+            builder.Services.AddTransient<IRepository<Provider>, ProviderRepository>();
+            builder.Services.AddTransient<IUnitOfWork, EFUnitOfWork>();
+
+            //Сервисы в BuisnessLogicLayer
+            builder.Services.AddTransient<IOrderItemsService, OrderItemsService>();
+            builder.Services.AddTransient<IOrderService, OrderService>();
+            builder.Services.AddTransient<IProviderService, ProviderService>();
+
+            //Регистрация сервисов внених библиотек
+            var mapperConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile()));
+            IMapper mapper = mapperConfig.CreateMapper();
+            builder.Services.AddSingleton(mapper);
+
+            var connection = builder.Configuration.GetConnectionString("SolfOrbTest");
+            builder.Services.AddDbContext<SolfOrbContext>
+            (options =>
+            {
+                options.UseNpgsql(connection, b => b.MigrationsAssembly("DAL"));
+
+            });
 
             var app = builder.Build();
 
