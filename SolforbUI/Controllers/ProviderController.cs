@@ -12,11 +12,11 @@ namespace SolforbUI.Controllers
     {
         private readonly IProviderService _providerService;
 
-        private readonly ILogger _logger;
+        private readonly ILogger<ProviderController> _logger;
 
         private readonly IMapper _mapper;
 
-        public ProviderController(IProviderService providerService, ILogger logger, IMapper mapper)
+        public ProviderController(IProviderService providerService, ILogger<ProviderController> logger, IMapper mapper)
         {
             _providerService = providerService;
             _logger = logger;

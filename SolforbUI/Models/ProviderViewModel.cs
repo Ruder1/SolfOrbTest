@@ -11,5 +11,7 @@
         /// Имя поставщика
         /// </summary>
         public string Name { get; init; }
+
+        public List<OrderViewModel> Order { get; init; }
     }
 }

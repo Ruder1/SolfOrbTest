@@ -1,6 +1,6 @@
-﻿namespace DAL.Entities
+﻿namespace SolforbUI.Models
 {
-    public class OrderItem
+    public class OrderItemViewModel
     {
         /// <summary>
         /// Id элемента заказа
@@ -26,8 +26,5 @@
         /// 
         /// </summary>
         public string Unit { get; init; }
-
-        public List<Order> Order { get; init; }
-
     }
 }

@@ -14,6 +14,8 @@ namespace SolforbUI.Services
             CreateMap<Provider, ProviderDTO>();
 
             CreateMap<ProviderDTO, ProviderViewModel>();
+            CreateMap<OrderDTO, OrderViewModel>();
+            CreateMap<OrderItemDTO, OrderItemViewModel>();
         }
     }
 }
