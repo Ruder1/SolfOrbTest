@@ -35,6 +35,7 @@ namespace SolforbUI
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddCors();
+            builder.Services.AddLogging();
 
             //Регистрация созданных сервисов
             //Сервисы в DAL

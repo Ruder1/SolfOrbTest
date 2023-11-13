@@ -1,6 +1,7 @@
 ﻿using DAL.EF;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace DAL.Repository
@@ -40,7 +41,10 @@ namespace DAL.Repository
 
         public IEnumerable<Provider> GetAll()
         {
-            return _context.Providers.ToList();
+            return _context.Providers
+                .Include(p=>p.Order)
+                .ThenInclude(o=>o.OrderItem)
+                .ToList();
         }
 
         public void Update(Provider item)

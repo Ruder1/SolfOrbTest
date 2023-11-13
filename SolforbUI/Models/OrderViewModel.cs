@@ -1,6 +1,6 @@
-﻿namespace BuisnessLogicLayer.DTO
+﻿namespace SolforbUI.Models
 {
-    public class OrderDTO
+    public class OrderViewModel
     {
         /// <summary>
         /// Id Заказа
@@ -22,6 +22,6 @@
         /// </summary>
         public int ProviderId { get; init; }
 
-        public List<OrderItemDTO> OrderItem { get; init; }
+        public List<OrderItemViewModel> OrderItem { get; init; }  
     }
 }

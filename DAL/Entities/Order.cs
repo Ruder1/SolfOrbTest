@@ -1,8 +1,12 @@
-﻿namespace DAL.Entities
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+
+namespace DAL.Entities
 {
     /// <summary>
     /// Заказ
     /// </summary>
+    [Index(nameof(Number), nameof(ProviderId), IsUnique = true)]
     public class Order
     {
         /// <summary>
@@ -24,5 +28,9 @@
         /// Id поставщика элемента заказа
         /// </summary>
         public int ProviderId { get; init; }
+
+        public Provider Provider { get; init; }
+
+        public List<OrderItem> OrderItem { get; init; }
     }
 }
