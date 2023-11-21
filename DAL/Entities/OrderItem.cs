@@ -23,11 +23,11 @@
         public decimal Quantity { get; init; }
 
         /// <summary>
-        /// 
+        /// Единицы измерения
         /// </summary>
         public string Unit { get; init; }
 
-        public List<Order> Order { get; init; }
+        public Order Order { get; init; }
 
     }
 }

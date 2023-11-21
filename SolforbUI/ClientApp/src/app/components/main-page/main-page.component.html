@@ -1,0 +1,207 @@
+<div class="MainContent">
+  <div class="d-flex flex-column">
+    <div class="d-flex flex-row justify-content-center">
+      <div>
+        <p class="text-center m-0 p-0">Номер заказа</p>
+        <ng-select
+          class="custom"
+          [items]="uniqueElements.orders"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [(ngModel)]="dataToFilter.orders"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <input
+              id="item-{{ index }}"
+              type="checkbox"
+              [ngModel]="item$.selected"
+            />
+            {{ item }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div>
+        <p class="text-center m-0 p-0">Поставщики</p>
+        <ng-select
+          class="custom"
+          [items]="uniqueElements.providers"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [(ngModel)]="dataToFilter.providers"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <input
+              id="item-{{ index }}"
+              type="checkbox"
+              [ngModel]="item$.selected"
+            />
+            {{ item }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div>
+        <p class="text-center m-0 p-0">Предметы</p>
+        <ng-select
+          class="custom"
+          [items]="uniqueElements.items"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [(ngModel)]="dataToFilter.items"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <input
+              id="item-{{ index }}"
+              type="checkbox"
+              [ngModel]="item$.selected"
+            />
+            {{ item }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div>
+        <p class="text-center m-0 p-0">Единицы измерения</p>
+        <ng-select
+          class="custom"
+          [items]="uniqueElements.units"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [(ngModel)]="dataToFilter.units"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <input
+              id="item-{{ index }}"
+              type="checkbox"
+              [ngModel]="item$.selected"
+            />
+            {{ item }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <!-- <select
+        multiple
+        class="form-select form-select-sm w-25 m-2"
+        size="5"
+        aria-label="Multiple select example"
+      >
+        <optgroup label="Номер заказа">
+          <option *ngFor="let order of uniqueElements.orders" [value]="order">
+            {{ order }}
+          </option>
+        </optgroup>
+      </select>
+      <select
+        multiple
+        class="form-select form-select-sm w-25 m-2"
+        size="5"
+        aria-label="Multiple select example"
+      >
+        <optgroup label="Поставщик">
+          <option
+            *ngFor="let provider of uniqueElements.providers"
+            [value]="provider"
+          >
+            {{ provider }}
+          </option>
+        </optgroup>
+      </select>
+      <select
+        multiple
+        class="form-select form-select-sm w-25 m-2"
+        size="5"
+        aria-label="Multiple select example"
+      >
+        <optgroup label="Предмет">
+          <option *ngFor="let item of uniqueElements.items" [value]="item">
+            {{ item }}
+          </option>
+        </optgroup>
+      </select>
+      <select
+        multiple
+        class="form-select form-select-sm w-25 m-2"
+        size="5"
+        aria-label="Multiple select example"
+      >
+        <optgroup label="Единицы измерения">
+          <option *ngFor="let unit of uniqueElements.units" [value]="unit">
+            {{ unit }}
+          </option>
+        </optgroup>
+      </select> -->
+    </div>
+    <div class="d-flex flex-row">
+      <div class="input-group m-2 w-50">
+        <span class="input-group-text">Период</span>
+        <input
+          type="date"
+          aria-label="First name"
+          class="form-control"
+          id="mydate"
+          [(ngModel)]="dataToFilter.previousDate"
+        />
+        <input
+          type="date"
+          aria-label="Last name"
+          class="form-control"
+          [(ngModel)]="dataToFilter.currentDate"
+        />
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-primary m-2 w-25"
+        (click)="createNewOrder()"
+      >
+        Добавить заказ
+      </button>
+      <button type="button" class="btn btn-primary m-2 w-25" (click)="check()">
+        Фильтр
+      </button>
+    </div>
+  </div>
+  <table class="table table-bordered table-light table-striped m-2">
+    <thead class="table-success">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Номер заказа</th>
+        <th scope="col">Поставщик</th>
+        <th scope="col">Предмет</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let order of Orders; let i = index"
+        (click)="viewOrderInfo(order)"
+      >
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          <a href="">
+            {{ order.number }}
+          </a>
+        </td>
+        <td>{{ order.provider.name }}</td>
+        <td>{{ order.orderItem[0].name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

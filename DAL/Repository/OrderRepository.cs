@@ -1,6 +1,7 @@
 ﻿using DAL.EF;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace DAL.Repository
@@ -17,6 +18,9 @@ namespace DAL.Repository
 
         public void Create(Order item)
         {
+            var provider = _context.Providers.FirstOrDefault(p => p.Id == item.ProviderId);
+            _context.Providers.Attach(provider);
+            item.Provider = provider;
             _context.Orders.Add(item);
         }
 
@@ -39,14 +43,18 @@ namespace DAL.Repository
 
         public IEnumerable<Order> GetAll()
         {
-            return _context.Orders.ToList();
+            return _context
+                .Orders
+                .Include(p=>p.Provider)
+                .Include(o=>o.OrderItem)                 
+                .ToList();
         }
 
-        public void Update(Order item)
+        public void Update(Order order)
         {
-            if (item != null)
+            if (order != null)
             {
-                _context.Orders.Update(item);
+                _context.Orders.Update(order);
             }
         }
     }

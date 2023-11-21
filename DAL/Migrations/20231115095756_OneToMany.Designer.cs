@@ -3,6 +3,7 @@ using System;
 using DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(SolfOrbContext))]
-    partial class SolfOrbContextModelSnapshot : ModelSnapshot
+    [Migration("20231115095756_OneToMany")]
+    partial class OneToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +33,8 @@ namespace DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Number")
                         .IsRequired()
@@ -53,28 +56,28 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateOnly(2023, 11, 19),
+                            Date = new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Utc),
                             Number = "#125321423",
                             ProviderId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateOnly(2023, 11, 19),
+                            Date = new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Utc),
                             Number = "#125425324",
                             ProviderId = 4
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateOnly(2023, 11, 19),
+                            Date = new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Utc),
                             Number = "#654634523",
                             ProviderId = 3
                         },
                         new
                         {
                             Id = 4,
-                            Date = new DateOnly(2023, 11, 19),
+                            Date = new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Utc),
                             Number = "#6512357671",
                             ProviderId = 2
                         });
@@ -140,6 +143,51 @@ namespace DAL.Migrations
                             OrderId = 4,
                             Quantity = 4563.43m,
                             Unit = "Что то"
+                        });
+                });
+
+            modelBuilder.Entity("DAL.Entities.OrdersWithItems", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("OrderItemId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrdersWithItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            OrderId = 1,
+                            OrderItemId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            OrderId = 2,
+                            OrderItemId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            OrderId = 3,
+                            OrderItemId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            OrderId = 4,
+                            OrderItemId = 4
                         });
                 });
 

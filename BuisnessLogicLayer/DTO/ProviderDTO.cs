@@ -12,6 +12,6 @@
         /// </summary>
         public string Name { get; init; }
 
-        public List<OrderDTO> Order { get; init; }
+        //public List<OrderDTO> Order { get; init; }
     }
 }
