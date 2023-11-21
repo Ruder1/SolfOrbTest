@@ -1,0 +1,7 @@
+.MainContent
+{
+    width:900px;
+    margin: auto;
+}
+
+a:active{color:black; background-color: red; margin: auto;}

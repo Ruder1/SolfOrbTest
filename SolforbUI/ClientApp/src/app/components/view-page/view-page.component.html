@@ -1,0 +1,41 @@
+<div class="CentralElements">
+  <ul class="list-group list-group-horizontal mb-2">
+    <li class="list-group-item list-group-item-primary w-100">
+      Информация о заказе
+    </li>
+  </ul>
+  <ul class="list-group list-group-horizontal mb-2">
+    <li class="list-group-item list-group-item-dark w-50">Номер</li>
+    <li class="list-group-item w-50">{{ order.number }}</li>
+  </ul>
+  <ul class="list-group list-group-horizontal-sm mb-2">
+    <li class="list-group-item list-group-item-dark w-50">Время заказа</li>
+    <li class="list-group-item w-50">{{ order.date }}</li>
+  </ul>
+  <ul class="list-group list-group-horizontal-sm mb-2">
+    <li class="list-group-item list-group-item-dark w-50">Поставщик</li>
+    <li class="list-group-item w-50">
+      {{ order.providerId }}-{{ order.provider.name }}
+    </li>
+  </ul>
+  <div *ngFor="let orderItem of order.orderItem">
+    <ul class="list-group list-group-horizontal-sm mb-2">
+      <li class="list-group-item list-group-item-dark w-50">Предмет</li>
+      <li class="list-group-item w-50">{{ orderItem.name }}</li>
+    </ul>
+    <ul class="list-group list-group-horizontal mb-2">
+      <li class="list-group-item list-group-item-dark w-50">Цена</li>
+      <li class="list-group-item w-50">{{ orderItem.quantity }}</li>
+    </ul>
+    <ul class="list-group list-group-horizontal-sm mb-2">
+      <li class="list-group-item list-group-item-dark w-50">Единицы измерения</li>
+      <li class="list-group-item w-50">{{ orderItem.unit }}</li>
+    </ul>
+  </div>
+  <div class="d-flex justify-content-evenly mt-3">
+    <button type="button" class="btn btn-primary" (click)="editOrder(order)">
+      Редактировтаь
+    </button>
+    <button type="button" class="btn btn-danger" (click)="deleteOrder()">Удалить</button>
+  </div>
+</div>
