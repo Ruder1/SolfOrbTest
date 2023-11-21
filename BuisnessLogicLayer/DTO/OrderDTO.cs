@@ -15,12 +15,14 @@
         /// <summary>
         /// Время когда был сделан заказ
         /// </summary>
-        public DateTime Date { get; init; }
+        public DateOnly Date { get; init; }
 
         /// <summary>
         /// Id поставщика элемента заказа
         /// </summary>
         public int ProviderId { get; init; }
+
+        public ProviderDTO Provider { get; init; }
 
         public List<OrderItemDTO> OrderItem { get; init; }
     }

@@ -41,10 +41,7 @@ namespace DAL.Repository
 
         public IEnumerable<Provider> GetAll()
         {
-            return _context.Providers
-                .Include(p=>p.Order)
-                .ThenInclude(o=>o.OrderItem)
-                .ToList();
+            return _context.Providers.OrderBy(d=>d.Id);
         }
 
         public void Update(Provider item)

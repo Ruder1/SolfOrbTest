@@ -22,14 +22,14 @@ namespace DAL.Entities
         /// <summary>
         /// Время когда был сделан заказ
         /// </summary>
-        public DateTime Date { get; init; }
+        public DateOnly Date { get; init; }
 
         /// <summary>
         /// Id поставщика элемента заказа
         /// </summary>
         public int ProviderId { get; init; }
 
-        public Provider Provider { get; init; }
+        public Provider Provider { get; set; }
 
         public List<OrderItem> OrderItem { get; init; }
     }

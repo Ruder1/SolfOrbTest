@@ -1,0 +1,99 @@
+<div class="CreateMenu">
+  <form [formGroup]="orderForm" novalidate (ngSubmit)="saveOrder()">
+    <div class="alert alert-danger"
+        *ngIf="!isUnique">
+        Номер заказа не уникален, поменяйте номер или поставщика
+    </div>
+    <div class="alert alert-info" 
+      *ngIf="orderForm.invalid">
+      Необходимо заполнить все поля
+    </div>
+    <p class="m-2">Заказ</p>
+    <div class="Row m-2">
+      <span class="InfoText input-group-text">Номер</span>
+      <input
+        type="text"
+        class="CustomInput form-control ms-4"
+        name="Number"
+        formControlName="orderNumber"
+      />
+      
+    </div>
+    <div class="Row m-2">
+      <span class="InfoText input-group-text">Время</span>
+      <input
+        type="date"
+        class="CustomInput form-control ms-4"
+        name="Date"
+        formControlName="orderDate"
+      />
+    </div>
+    <div class="Row m-2">
+      <!-- Здесь выводится имя поставщика по Id -->
+      <span class="InfoText input-group-text">Поставщик</span>
+      <select
+        class="form-select ms-4"
+        aria-label="Default select example"
+        formControlName="orderProvider"
+        (change)="changeOrderProvider()"
+      >
+        <option
+          [selected]="provider.id === order.providerId"
+          *ngFor="let provider of providers; let i = index"
+          id="{{ i }}"    
+        >
+          {{ provider.id }}-{{ provider.name }}
+        </option>
+      </select>
+    </div>
+    <p class="m-2">Предмет заказа:</p>
+    <div formArrayName="orderItems">
+      <div
+        *ngFor="let orderItem of getFormsControls()['controls']; let i = index"
+        [formGroupName]="i"
+      >
+        <p>#{{ i }}</p>
+        <div class="Row m-2">
+          <span class="InfoText input-group-text">Имя предмета</span>
+          <input
+            type="text"
+            class="CustomInput form-control ms-4"
+            formControlName="orderItemName"
+          />
+        </div>
+        <div class="Row m-2">
+          <span class="InfoText input-group-text">Количество</span>
+          <input
+            type="number"
+            class="CustomInput form-control ms-4"
+            formControlName="orderItemQuantity"
+          />
+        </div>
+        <div class="Row m-2">
+          <span class="InfoText input-group-text">Единицы измерения</span>
+          <input
+            type="text"
+            class="CustomInput form-control ms-4"
+            formControlName="orderItemUnit"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <div>
+        <button type="submit" class="btn btn-primary m-1">Сохрнаить</button>
+        <button type="button" class="btn btn-danger m-1" (click)="cancelEdit()">Отмена</button>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary m-1"
+          (click)="onAddNewOrderItem()"
+        >
+          Добавить строку
+        </button>
+        <button type="button" class="btn btn-danger m-1" (click)="removeItem()">Удалить строку</button>
+      </div>
+    </div>
+  </form>
+</div>

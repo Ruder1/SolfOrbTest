@@ -11,8 +11,6 @@ namespace DAL.EF
 
         public DbSet<Provider> Providers { get; set; } = null!;
 
-        public DbSet<OrdersWithItems> OrdersWithItems { get; set; } = null!;
-
         public SolfOrbContext(DbContextOptions<SolfOrbContext> options)
             : base(options)
         { }
@@ -50,28 +48,28 @@ namespace DAL.EF
                     Id=1,
                     Number ="#125321423",
                     ProviderId = 1,
-                    Date = DateTime.UtcNow
+                    Date =  DateOnly.Parse( DateTime.Now.Date.ToString("d"))
                 },
                 new Order
                 {
                     Id = 2,
                     Number ="#125425324",
                     ProviderId = 4,
-                    Date = DateTime.UtcNow
+                    Date =  DateOnly.Parse( DateTime.Now.Date.ToString("d"))
                 },
                 new Order
                 {
                     Id = 3,
                     Number ="#654634523",
                     ProviderId = 3,
-                    Date = DateTime.UtcNow
+                    Date =  DateOnly.Parse( DateTime.Now.Date.ToString("d"))
                 },
                 new Order
                 {
                     Id = 4,
                     Number ="#6512357671",
                     ProviderId = 2,
-                    Date = DateTime.UtcNow
+                    Date = DateOnly.Parse( DateTime.Now.Date.ToString("d"))
                 }
             };
 
@@ -111,16 +109,6 @@ namespace DAL.EF
                 }
             };
 
-            var listOrdersWithItems = new List<OrdersWithItems>()
-            {
-                new OrdersWithItems { Id=1,OrderId = 1, OrderItemId = 1 },
-                new OrdersWithItems { Id=2, OrderId = 2, OrderItemId = 2},
-                new OrdersWithItems { Id=3, OrderId = 3, OrderItemId = 3},
-                new OrdersWithItems { Id=4,OrderId = 4, OrderItemId = 4},
-            };
-
-            modelBuilder.Entity<OrdersWithItems>()
-                .HasData(listOrdersWithItems);
             modelBuilder.Entity<OrderItem>().HasData(listOrderItems);
             modelBuilder.Entity<Order>().HasData(listOrders);
             modelBuilder.Entity<Provider>().HasData(listProviders);
@@ -132,9 +120,8 @@ namespace DAL.EF
                 .HasForeignKey(o => o.ProviderId);
 
             modelBuilder.Entity<OrderItem>()
-                .HasMany(o => o.Order)
-                .WithMany(i => i.OrderItem)
-                .UsingEntity<OrdersWithItems>();
+                .HasOne(o => o.Order)
+                .WithMany(i => i.OrderItem);
         }
     }
 }

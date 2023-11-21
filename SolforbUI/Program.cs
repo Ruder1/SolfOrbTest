@@ -45,9 +45,9 @@ namespace SolforbUI
             builder.Services.AddTransient<IUnitOfWork, EFUnitOfWork>();
 
             //Сервисы в BuisnessLogicLayer
-            builder.Services.AddTransient<IOrderItemsService, OrderItemsService>();
             builder.Services.AddTransient<IOrderService, OrderService>();
             builder.Services.AddTransient<IProviderService, ProviderService>();
+            builder.Services.AddTransient<IFilterService, FilterService>();
 
             //Регистрация сервисов внених библиотек
             var mapperConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile()));
@@ -87,7 +87,7 @@ namespace SolforbUI
                 app.UseSwaggerUI(options =>
                 {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                    options.RoutePrefix = string.Empty;
+                    options.RoutePrefix = "swagger";
                 });
             }
 
