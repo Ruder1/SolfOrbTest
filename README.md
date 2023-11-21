@@ -30,6 +30,7 @@
 
 ## Что используется в проекте
 
+- Postgres
 - .NET 7  
 - ASP.NET  
 - Automapper  
