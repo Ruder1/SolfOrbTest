@@ -18,3 +18,45 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.ng-select.custom {
+  border:20px;
+  min-height: 10px;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.ng-select.custom .ng-select-container  {            
+  min-height: 10px;
+  max-height: 60px;    
+  width: 210px;
+  border-radius: 5px;
+  background-color: #f0f2f2;
+}
+
+.ng-value-label
+{
+  background-color: white;
+}
+
+.ng-select .ng-clear-wrapper
+{
+  display: none;   
+}
+
+.ng-select.ModalSelect {
+  border:20px;
+  border-radius: 10px;
+  padding: 4px;
+  width: 100%;  
+  min-width: 150px;
+  max-width: 250px;
+}
+.ng-select.ModalSelect .ng-select-container  {         
+  min-width: 150px;
+  max-width: 200px;
+  border-radius: 5px;
+}
+
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
