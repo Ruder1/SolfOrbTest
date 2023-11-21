@@ -1,4 +1,7 @@
 # SolforbTest
+
+Проект мигрирован с Gitlab https://gitlab.com/Ruder1/SolforbTest
+
 ## Getting started
 
 Прежде чем запустить проект нужно настроить окружение
